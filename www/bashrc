@@ -1,0 +1,53 @@
+# ignore if non-interactive
+case $- in
+*i*) ;;
+*) return ;;
+esac
+
+# shell options
+shopt -s checkwinsize \
+    expand_aliases \
+    histappend
+
+# history options
+HISTCONTROL=ignoredups
+HISTFILESIZE=20000
+HISTSIZE=10000
+HISTTIMEFORMAT="%F %T "
+
+# aliases
+alias ll="ls -lAh"
+alias ..="cd .."
+alias cd..="cd .."
+
+# auto completion
+bind 'set completion-ignore-case on'
+if ! shopt -oq posix; then
+    if [[ -f /usr/share/bash-completion/bash_completion ]]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [[ -f /etc/bash_completion ]]; then
+        . /etc/bash_completion
+    fi
+    if command -v nerdctl >/dev/null 2>&1; then
+        source <(nerdctl completion bash)
+    fi
+    if command -v podman >/dev/null 2>&1; then
+        source <(podman completion bash)
+    fi
+fi
+
+# prompt
+PROMPT_COMMAND=__prompt_command
+__prompt_command() {
+    local exit_code="$?"
+    local FG_DEFAULT='\[\033[39m\]'
+    local FG_RED='\[\033[31m\]'
+    local DIM_ON='\[\033[2m\]'
+    local RESET='\[\033[0m\]'
+    PS1="${DIM_ON}"
+    if [[ "${exit_code}" != 0 ]]; then
+        PS1+="=> ${FG_RED}${exit_code}${FG_DEFAULT}\n"
+    fi
+    PS1+="\u@\h:\w"
+    PS1+="\n\$${RESET} "
+}

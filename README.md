@@ -1,6 +1,6 @@
-# Debian HTTP Preseeding
+# Debian HTTP preseeding
 
-Debian iso generator for automatic HTTP preseeded deployments of my machines.
+Automatic preseeded deployments of my debian machines
 
 ## Usage
 
@@ -8,4 +8,4 @@ Debian iso generator for automatic HTTP preseeded deployments of my machines.
 
 ## Password
 
-The password declared by `passwd/user-password-crypted` gets discarded! It must be defined on first login.
+The password declared by `passwd/user-password-crypted` gets discarded! User is prompted for a new one on first login.

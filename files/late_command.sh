@@ -4,7 +4,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-url="https://nothub.github.io/debian-preseed/files"
+url="https://nothub.github.io/debian-autoinstall/files"
 
 # find user name (there is just 1 dir in /home/ right now)
 user=$(basename "$(find "/home" -maxdepth 1 -type d -wholename "/home/*")")

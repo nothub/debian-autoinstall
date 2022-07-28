@@ -37,7 +37,7 @@ xorriso \
 # set default boot entry and parameters
 sed -i "s#default vesamenu.c32#default auto#" "${workdir}/isolinux.cfg"
 sed -i "s#timeout 0#timeout 500#" "${workdir}/isolinux.cfg"
-sed -i "s#auto=true#auto=true url=https://nothub.github.io/debian-preseed/preseed.cfg#" "${workdir}/adtxt.cfg"
+sed -i "s#auto=true#auto=true url=https://nothub.github.io/debian-autoinstall/preseed.cfg#" "${workdir}/adtxt.cfg"
 
 # repack iso
 rm -f "${iso_file//.iso/-auto.iso}"

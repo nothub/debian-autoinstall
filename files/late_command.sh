@@ -4,7 +4,9 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-# find user name (there is just 1 directory in /home/ right now)
+url="https://nothub.github.io/debian-preseed/files"
+
+# find user name (there is just 1 dir in /home/ right now)
 user=$(basename "$(find "/home" -maxdepth 1 -type d -wholename "/home/*")")
 user_home="/home/${user}"
 
@@ -13,9 +15,9 @@ passwd --delete "${user}"
 passwd --expire "${user}"
 
 # download some config
-curl --location --output "/etc/motd" "${url:?}/files/motd"
-curl --location --output "/etc/ssh/sshd_config" "${url}/files/sshd_config"
-curl --location --output "${user_home}/.bashrc" "${url}/files/bashrc"
+curl --location --output "/etc/motd" "${url}/motd"
+curl --location --output "/etc/ssh/sshd_config" "${url}/sshd_config"
+curl --location --output "${user_home}/.bashrc" "${url}/bashrc"
 
 # authorize ssh login
 mkdir -p "${user_home}/.ssh"

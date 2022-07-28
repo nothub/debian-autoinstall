@@ -19,7 +19,7 @@ if [[ ! -f ${iso_file} ]]; then
     curl --location --remote-name ${iso_url}
 fi
 
-# check iso checksum
+# verify iso checksum
 if ! md5sum -c <<<"${iso_md5} ${iso_file}" | grep -q "${iso_file}: OK"; then
     log "Error: Checksum not matching for: ${iso_file}"
     exit 1
@@ -36,7 +36,6 @@ xorriso \
 
 # set default boot entry and parameters
 sed -i "s#default vesamenu.c32#default auto#" "${workdir}/isolinux.cfg"
-sed -i "s#timeout 0#timeout 500#" "${workdir}/isolinux.cfg"
 sed -i "s#auto=true#auto=true url=https://nothub.github.io/debian-autoinstall/preseed.cfg#" "${workdir}/adtxt.cfg"
 
 # repack iso

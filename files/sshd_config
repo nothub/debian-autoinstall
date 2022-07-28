@@ -18,7 +18,7 @@ Subsystem sftp  /usr/lib/openssh/sftp-server -f AUTHPRIV -l INFO
 PermitRootLogin No
 LoginGraceTime 1m
 UseDNS no
-PrintMotd=no
+PrintMotd no
 
 UsePAM yes
 PasswordAuthentication no

@@ -5,8 +5,8 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-iso_url="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-11.4.0-amd64-netinst.iso"
-iso_md5="d78b390d70e4a858b41d6bdfdd4b27a0"
+iso_url="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-11.5.0-amd64-netinst.iso"
+iso_sha256="e307d0e583b4a8f7e5b436f8413d4707dd4242b70aea61eb08591dc0378522f3"
 
 log() {
     echo >&2 "$*"
@@ -20,7 +20,7 @@ if [[ ! -f ${iso_file} ]]; then
 fi
 
 # verify iso checksum
-if ! md5sum -c <<<"${iso_md5} ${iso_file}" | grep -q "${iso_file}: OK"; then
+if ! sha256sum -c <<<"${iso_sha256} ${iso_file}" | grep -q "${iso_file}: OK"; then
     log "Error: Checksum not matching for: ${iso_file}"
     exit 1
 fi

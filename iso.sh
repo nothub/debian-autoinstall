@@ -5,8 +5,8 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-iso_url="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-11.5.0-amd64-netinst.iso"
-iso_sha256="e307d0e583b4a8f7e5b436f8413d4707dd4242b70aea61eb08591dc0378522f3"
+iso_url="https://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/11.5.0+nonfree/amd64/iso-cd/firmware-11.5.0-amd64-netinst.iso"
+iso_sha256="ce1dcd1fa272976ddc387554202013e69ecf1b02b38fba4f8c35c8b12b8f521e"
 
 log() {
     echo >&2 "$*"

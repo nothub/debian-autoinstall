@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# dependencies: curl xorriso
 
 set -o errexit
 set -o nounset

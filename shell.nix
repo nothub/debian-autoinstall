@@ -4,6 +4,7 @@ mkShell {
     cacert
     coreutils
     curl
+    gnupg
     xorriso
   ];
 }

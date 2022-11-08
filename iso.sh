@@ -4,23 +4,23 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+debian_signing_key="DA87E80D6294BE9B"
 iso_url="https://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/11.5.0+nonfree/amd64/iso-cd/firmware-11.5.0-amd64-netinst.iso"
-iso_sha256="ce1dcd1fa272976ddc387554202013e69ecf1b02b38fba4f8c35c8b12b8f521e"
 
-log() {
-    echo >&2 "$*"
-}
-
-# download iso
+# download
 iso_file=$(basename ${iso_url})
 if [[ ! -f ${iso_file} ]]; then
-    log "Downloading iso image: ${iso_file}"
-    curl --location --remote-name ${iso_url}
+    echo >&2 "Downloading iso image: ${iso_file}"
+    curl --progress-bar --location --remote-name ${iso_url}
 fi
+curl --silent --location --remote-name "$(dirname ${iso_url})/SHA256SUMS"
+curl --silent --location --remote-name "$(dirname ${iso_url})/SHA256SUMS.sign"
 
-# verify iso checksum
-if ! sha256sum -c <<<"${iso_sha256} ${iso_file}" | grep -q "${iso_file}: OK"; then
-    log "Error: Checksum not matching for: ${iso_file}"
+# verify
+gpg --keyserver keyring.debian.org --recv "${debian_signing_key}"
+gpg --verify SHA256SUMS.sign SHA256SUMS
+if ! sha256sum -c <<<"$(grep "${iso_file}" SHA256SUMS)"; then
+    echo >&2 "Error: Checksum not matching for: ${iso_file}"
     exit 1
 fi
 

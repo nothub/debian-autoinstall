@@ -49,19 +49,10 @@ echo "shuf: $(command -v shuf)" >>"${log}"
 echo "head: $(command -v head)" >>"${log}"
 echo "tr: $(command -v tr)" >>"${log}"
 
-# random art banner
-rand() {
-    local count
-    if [[ -n $2 ]]; then count=$2; else count=1; fi
-    echo -n "$1" | grep -Eo '\S{1}' | shuf | head --lines "$count"
-}
-buf="$(rand "☀☄🌎🌑🚀🛰🛸" 3)"
-buf+="$(for _ in {1..7}; do rand ",;'~*°✦⊚⊙⨀⋇"; done)"
-buf+="$(for _ in {1..20}; do rand ".⋅∙⋆"; done)"
-buf+="$(for _ in {1..750}; do echo -n " "; done)"
-echo "${buf}" | grep -Eo '[^\n]{1}' | shuf | tr -d '\n' | grep -Eo '.{60}' >/etc/motd
+# motd banner
+curl --location --output "/etc/motd" "${files_url}/motd"
 
-echo "random art banner" >>"${log}"
+echo "motd banner" >>"${log}"
 
 # install nix
 sh <(curl -L https://nixos.org/nix/install) --daemon

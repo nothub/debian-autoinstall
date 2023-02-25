@@ -9,7 +9,7 @@ shopt -s checkwinsize \
     histappend
 
 HISTCONTROL=ignoredups
-HISTFILESIZE=20000
+HISTFILESIZE=50000
 HISTSIZE=10000
 HISTTIMEFORMAT="%F %T "
 

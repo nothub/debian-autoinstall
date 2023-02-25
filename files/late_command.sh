@@ -6,11 +6,11 @@ set -o pipefail
 
 url="https://nothub.github.io/debian-autoinstall/files"
 
-# find user name (there is just 1 dir in /home/ right now)
-user=$(basename "$(find "/home" -maxdepth 1 -type d -wholename "/home/*")")
-user_home="/home/${user}"
+# find user (from default userid)
+user=$(id -u -n -- "1000")
+user_home=$(getent passwd "${user}" | cut -d: -f6)
 
-# expire user passwort -> requires password to be defined on next login
+# expire user passwort (requires password to be defined on next login)
 passwd --delete "${user}"
 passwd --expire "${user}"
 

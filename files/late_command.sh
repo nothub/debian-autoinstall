@@ -14,6 +14,9 @@ user_home=$(getent passwd "${user}" | cut -d: -f6)
 log="${user_home}/install.log"
 touch "${log}"
 
+echo "whoami: $(whoami)" >>"${log}"
+echo "home: ${HOME}" >>"${log}"
+
 echo "running post install commands" >>"${log}"
 
 # expire user passwort (requires password to be defined on next login)
@@ -52,7 +55,7 @@ rand() {
     if [[ -n $2 ]]; then count=$2; else count=1; fi
     echo -n "$1" | grep -Eo '\S{1}' | shuf | head --lines "$count"
 }
-buf+="$(rand "☀☄🌎🌑🚀🛰🛸" 3)"
+buf="$(rand "☀☄🌎🌑🚀🛰🛸" 3)"
 buf+="$(for _ in {1..7}; do rand ",;'~*°✦⊚⊙⨀⋇"; done)"
 buf+="$(for _ in {1..20}; do rand ".⋅∙⋆"; done)"
 buf+="$(for _ in {1..750}; do echo -n " "; done)"

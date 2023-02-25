@@ -15,7 +15,6 @@ passwd --delete "${user}"
 passwd --expire "${user}"
 
 # download some config
-curl --location --output "/etc/motd" "${url}/motd"
 curl --location --output "/etc/ssh/sshd_config" "${url}/sshd_config"
 curl --location --output "${user_home}/.bashrc" "${url}/bashrc"
 
@@ -27,3 +26,15 @@ chmod 644 "${user_home}/.ssh/authorized_keys"
 
 # reset user homedir owner
 chown -R "$(stat --format "%U:%G" "${user_home}")" "${user_home}"
+
+# random art banner
+rand() {
+    local count
+    if [[ -n $2 ]]; then count=$2; else count=1; fi
+    echo -n "$1" | grep -Eo '\S{1}' | shuf | head --lines "$count"
+}
+buf+="$(rand "☀☄🌎🌑🚀🛰🛸" 3)"
+buf+="$(for _ in {1..7}; do rand ",;'~*°✦⊚⊙⨀⋇"; done)"
+buf+="$(for _ in {1..20}; do rand ".⋅∙⋆"; done)"
+buf+="$(for _ in {1..750}; do echo -n " "; done)"
+echo "${buf}" | grep -Eo '[^\n]{1}' | shuf | tr -d '\n' | grep -Eo '.{60}' >/etc/motd

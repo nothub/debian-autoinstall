@@ -38,3 +38,6 @@ buf+="$(for _ in {1..7}; do rand ",;'~*°✦⊚⊙⨀⋇"; done)"
 buf+="$(for _ in {1..20}; do rand ".⋅∙⋆"; done)"
 buf+="$(for _ in {1..750}; do echo -n " "; done)"
 echo "${buf}" | grep -Eo '[^\n]{1}' | shuf | tr -d '\n' | grep -Eo '.{60}' >/etc/motd
+
+# install nix
+sh <(curl -L https://nixos.org/nix/install) --daemon

@@ -5,7 +5,7 @@ set -o nounset
 set -o pipefail
 
 debian_signing_key="DA87E80D6294BE9B"
-iso_url="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-11.5.0-amd64-netinst.iso"
+iso_url="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-11.6.0-amd64-netinst.iso"
 
 # download
 iso_file=$(basename ${iso_url})

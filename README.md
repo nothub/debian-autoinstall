@@ -1,10 +1,10 @@
-# Debian HTTP preseeding
+# debian-autoinstall
 
-Automatic preseeded deployments of my debian machines
+Generate customized Debian iso images for automatic (preseeded) deployments.
 
 ## Usage
 
-`iso.sh` -> Generate hands-free iso
+Run `iso.sh` to generate a hands-free iso image.
 
 ## Password
 

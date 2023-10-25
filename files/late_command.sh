@@ -17,7 +17,7 @@ passwd --expire "${user}"
 
 # download some configs
 curl -fsSLo "/etc/ssh/sshd_config" "${files_url}/sshd_config"
-curl -fsSLo "${user_home}/.bashrc" "${files_url}/bashrc"
+curl -fsSLo "${user_home}/.bashrc" "${files_url}/bashrc.bash"
 
 # motd banner
 curl -fsSLo "/etc/motd" "${files_url}/motd"

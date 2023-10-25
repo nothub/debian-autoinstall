@@ -15,21 +15,16 @@ user_home=$(getent passwd "${user}" | cut -d: -f6)
 passwd --delete "${user}"
 passwd --expire "${user}"
 
-# download some configs
-curl -fsSLo "/etc/ssh/sshd_config" "${files_url}/sshd_config"
-curl -fsSLo "${user_home}/.bashrc" "${files_url}/bashrc.bash"
-
-# motd banner
-curl -fsSLo "/etc/motd" "${files_url}/motd"
+# custom configuration
+curl -sSLo "/etc/motd"            "${files_url}/motd"
+curl -sSLo "/etc/ssh/sshd_config" "${files_url}/sshd_config"
+curl -sSLo "${user_home}/.bashrc" "${files_url}/bashrc.bash"
 
 # authorize ssh login
 mkdir -p "${user_home}/.ssh"
 chmod 700 "${user_home}/.ssh"
-curl -fsSLo "${user_home}/.ssh/authorized_keys" "${ssh_keys_url}"
+curl -sSLo "${user_home}/.ssh/authorized_keys" "${ssh_keys_url}"
 chmod 644 "${user_home}/.ssh/authorized_keys"
 
 # reset user homedir owner
 chown -R "$(stat --format "%U:%G" "${user_home}")" "${user_home}"
-
-# install nix
-sh <(curl -fsSL https://nixos.org/nix/install) --daemon

@@ -37,11 +37,15 @@ xorriso \
 sed -i "s#default vesamenu.c32#default auto#" "${workdir}/isolinux.cfg"
 sed -i "s#auto=true#auto=true url=https://nothub.github.io/debian-autoinstall/preseed.cfg#" "${workdir}/adtxt.cfg"
 
+# custom splash image
+cp "splash.png" "${workdir}/splash.png"
+
 # repack iso
 rm -f "${iso_file//.iso/-auto.iso}"
 xorriso -indev "${iso_file}" \
     -map "${workdir}/isolinux.cfg" "/isolinux/isolinux.cfg" \
     -map "${workdir}/adtxt.cfg" "/isolinux/adtxt.cfg" \
+    -map "${workdir}/splash.png" "/isolinux/splash.png" \
     -boot_image isolinux dir=/isolinux \
     -outdev "${iso_file//.iso/-auto.iso}"
 

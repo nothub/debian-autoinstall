@@ -8,7 +8,8 @@ Run `build.sh` to generate a hands-free iso image.
 
 ### Example
 
-```
+```sh
+curl -sSLo "configs/authorized_keys" "https://github.com/nothub.keys"
 ./build.sh -u "hub" -n "mainframe" -d "hub.lol"
 ```
 

@@ -2,18 +2,16 @@
 
 Generate customized Debian ISO images for automatic deployments.
 
-## Build
+## Usage
 
 Run `build.sh` to generate a hands-free iso image.
-
-### Example
 
 ```sh
 sudo apt update
 sudo apt install curl git gnupg pwgen whois xorriso
-git clone "https://github.com/nothub/debian-autoinstall.git"
-cd "debian-autoinstall"
-curl -sSLo "configs/authorized_keys" "https://github.com/nothub.keys"
+git clone https://github.com/nothub/debian-autoinstall.git
+cd debian-autoinstall
+curl -sSLo configs/authorized_keys https://github.com/nothub.keys
 ./build.sh -u "hub" -n "mainframe" -d "hub.lol"
 ```
 

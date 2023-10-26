@@ -27,7 +27,11 @@ Run `build.sh` to generate a hands-free iso image.
 
 ### Password
 
-If the `-p` flag is not set, a new admin password will be generated automatically.
+If the `-p` flag is not set, a random admin password will be generated.
+
+### Hostname
+
+If the `-n` flag is not set, a hash of the machines mac addresses will be used as hostname.
 
 ## Debug in VM
 

@@ -43,10 +43,10 @@ shift $((OPTIND - 1))
 iso_file=$(basename "${iso_url}")
 if [[ ! -f ${iso_file} ]]; then
     echo >&2 "Downloading iso image: ${iso_file}"
-    curl --progress-bar --location --remote-name "${iso_url}"
+    curl --progress-bar -Lo "${iso_file}" "${iso_url}"
 fi
-curl --silent --location --remote-name "$(dirname "${iso_url}")/SHA256SUMS"
-curl --silent --location --remote-name "$(dirname "${iso_url}")/SHA256SUMS.sign"
+curl -sSLO "$(dirname "${iso_url}")/SHA256SUMS"
+curl -sSLO "$(dirname "${iso_url}")/SHA256SUMS.sign"
 
 # verify
 gpg --keyserver keyring.debian.org --recv "${sign_key}"

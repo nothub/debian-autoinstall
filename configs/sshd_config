@@ -30,5 +30,5 @@ GSSAPIAuthentication no
 X11Forwarding no
 AllowTcpForwarding no
 
-Match User hub
+Match User @USERNAME@
     AllowTcpForwarding yes

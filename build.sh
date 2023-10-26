@@ -4,25 +4,52 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-# TODO: flags
-username="hub"
+usage() {
+    echo "Usage: $0 [-u username] [-p password] [-n hostname] [-d domain] [-i iso_url] [-s sign_key] [-v] [-h]"
+    echo "Options:"
+    echo "  -u <username>    Admin username"
+    echo "  -p <password>    Admin password"
+    echo "  -n <hostname>    Machine hostname"
+    echo "  -d <domain>      Machine domain"
+    echo "  -i <iso_url>     ISO download URL"
+    echo "  -s <sign_key>    ISO pgp sign key"
+    echo "  -v               Enable verbose mode"
+    echo "  -h               Display this help message"
+}
+
+username="admin"
 password="$(pwgen -ns 16 1)"
 hostname="machine"
-domain="hub.lol"
+domain="example.org"
 iso_url="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.2.0-amd64-netinst.iso"
-signing_key="DA87E80D6294BE9B"
+sign_key="DA87E80D6294BE9B"
+
+while getopts u:p:n:d:i:s:vh opt; do
+    case $opt in
+    u) username="$OPTARG" ;;
+    p) password="$OPTARG" ;;
+    n) hostname="$OPTARG" ;;
+    d) domain="$OPTARG" ;;
+    i) iso_url="$OPTARG" ;;
+    s) sign_key="$OPTARG" ;;
+    v) set -o xtrace ;;
+    h) usage ; exit 0 ;;
+    *) usage ; exit 1 ;;
+    esac
+done
+shift $((OPTIND - 1))
 
 # download
-iso_file=$(basename ${iso_url})
+iso_file=$(basename "${iso_url}")
 if [[ ! -f ${iso_file} ]]; then
     echo >&2 "Downloading iso image: ${iso_file}"
-    curl --progress-bar --location --remote-name ${iso_url}
+    curl --progress-bar --location --remote-name "${iso_url}"
 fi
-curl --silent --location --remote-name "$(dirname ${iso_url})/SHA256SUMS"
-curl --silent --location --remote-name "$(dirname ${iso_url})/SHA256SUMS.sign"
+curl --silent --location --remote-name "$(dirname "${iso_url}")/SHA256SUMS"
+curl --silent --location --remote-name "$(dirname "${iso_url}")/SHA256SUMS.sign"
 
 # verify
-gpg --keyserver keyring.debian.org --recv "${signing_key}"
+gpg --keyserver keyring.debian.org --recv "${sign_key}"
 gpg --verify SHA256SUMS.sign SHA256SUMS
 if ! sha256sum -c <<<"$(grep "${iso_file}" SHA256SUMS)"; then
     echo >&2 "Error: Checksum not matching for: ${iso_file}"

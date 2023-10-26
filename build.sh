@@ -6,7 +6,7 @@ set -o pipefail
 
 # TODO: flags
 admin_user="hub"
-admin_pass="$(pwgen -ns 32 1)"
+admin_pass="$(pwgen -ns 16 1)"
 
 debian_signing_key="DA87E80D6294BE9B"
 iso_url="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.2.0-amd64-netinst.iso"

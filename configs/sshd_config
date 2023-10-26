@@ -15,6 +15,8 @@ LogLevel VERBOSE
 # Log sftp level file access (read/write/etc.) that would not be easily logged otherwise.
 Subsystem sftp  /usr/lib/openssh/sftp-server -f AUTHPRIV -l INFO
 
+Banner /etc/issue.net
+
 PermitRootLogin No
 LoginGraceTime 1m
 UseDNS no

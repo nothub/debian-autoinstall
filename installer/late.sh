@@ -7,6 +7,8 @@ admin="@USERNAME@"
 
 # custom configs
 cp -a "/cdrom/configs/motd"        "${prefix}/etc/motd"
+cp -a "/cdrom/configs/issue"       "${prefix}/etc/issue"
+cp -a "/cdrom/configs/issue.net"   "${prefix}/etc/issue.net"
 cp -a "/cdrom/configs/sshd_config" "${prefix}/etc/ssh/sshd_config"
 cp -a "/cdrom/configs/bashrc.bash" "${prefix}/etc/skel/.bashrc"
 cp -a "/cdrom/configs/bashrc.bash" "${prefix}/root/.bashrc"

@@ -90,6 +90,8 @@ xorriso -indev "${iso_file}" \
     -map "installer/late.sh"       "/late.sh" \
     -map "installer/splash.png"    "/isolinux/splash.png" \
     -map "configs/motd"            "/configs/motd" \
+    -map "configs/issue"           "/configs/issue" \
+    -map "configs/issue.net"       "/configs/issue.net" \
     -map "configs/sshd_config"     "/configs/sshd_config" \
     -map "configs/bashrc.bash"     "/configs/bashrc.bash" \
     -map "configs/authorized_keys" "/configs/authorized_keys" \

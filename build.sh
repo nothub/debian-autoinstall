@@ -69,17 +69,17 @@ xorriso \
 sed -i "s#default vesamenu.c32#default auto#" "${workdir}/isolinux.cfg"
 sed -i "s#auto=true#auto=true file=/cdrom/preseed.cfg#" "${workdir}/adtxt.cfg"
 
-# admin user name
-sed -i "s#admin=.*#admin=\"${username}\"#" "installer/late.sh"
-# admin password
+# replace tokens
+## username
+find configs installer -type f -exec sed -i "s#@USERNAME@#${username}#" {} \;
+## password hash
 salt="$(pwgen -ns 16 1)"
 hash="$(mkpasswd -m sha-512 -S "${salt}" "${password}")"
-sed -i "s#d-i passwd/user-password-crypted password.*#d-i passwd/user-password-crypted password ${hash}#" "installer/preseed.cfg"
-
-# hostname
-sed -i "s#d-i netcfg/get_hostname string.*#d-i netcfg/get_hostname string ${hostname}#" "installer/preseed.cfg"
-# domain
-sed -i "s#d-i netcfg/get_domain string.*#d-i netcfg/get_domain string ${domain}#" "installer/preseed.cfg"
+sed -i "s#@PASSHASH@#${hash}#" "installer/preseed.cfg"
+## hostname
+sed -i "s#@HOSTNAME@#${hostname}#" "installer/preseed.cfg"
+## domain
+sed -i "s#@DOMAIN@#${domain}#" "installer/preseed.cfg"
 
 # repack iso
 rm -f "${iso_file//.iso/-auto.iso}"

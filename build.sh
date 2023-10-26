@@ -71,5 +71,6 @@ xorriso -indev "${iso_file}" \
 
 rm -rf "${workdir}"
 
+echo "host: ${hostname}.${domain}"
 echo "user: ${username}"
 echo "pass: ${password}"

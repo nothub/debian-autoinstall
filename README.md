@@ -9,7 +9,7 @@ Run `build.sh` to generate a hands-free iso image.
 ### Example
 
 ```
-./build.sh -u "hub" -p "changeme" -d "hub.lol"
+./build.sh -u "hub" -n "mainframe" -d "hub.lol"
 ```
 
 ### Flags
@@ -35,6 +35,6 @@ If the `-n` flag is not set, a hash of the machines mac addresses will be used a
 
 ## Debug in VM
 
-While running the installer, press `ctrl`+`alt`+`f4` to show `in-target` log output.
+While running the installer, press `ctrl`+`alt`+`f4` to show the installers log output.
 To switch back to the installers graphical interface, press `ctrl`+`alt`+`f1`.
 Switch to any other TTY for an interactive shell.

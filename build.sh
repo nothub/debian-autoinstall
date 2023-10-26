@@ -47,8 +47,6 @@ sed -i "s#admin=.*#admin=\"${admin_user}\"#" "installer/late.sh"
 # admin password
 salt="$(pwgen -ns 16 1)"
 hash="$(mkpasswd -m sha-512 -S "${salt}" "${admin_pass}")"
-echo "user: hub"
-echo "pass: ${admin_pass}"
 sed -i "s#d-i passwd/user-password-crypted password.*#d-i passwd/user-password-crypted password ${hash}#" "installer/preseed.cfg"
 
 # repack iso
@@ -67,3 +65,6 @@ xorriso -indev "${iso_file}" \
     -outdev "${iso_file//.iso/-auto.iso}"
 
 rm -rf "${workdir}"
+
+echo "user: ${admin_user}"
+echo "pass: ${admin_pass}"

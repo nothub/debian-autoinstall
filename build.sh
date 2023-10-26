@@ -39,6 +39,9 @@ while getopts u:p:n:d:i:s:vh opt; do
 done
 shift $((OPTIND - 1))
 
+# go to project root
+cd "$(realpath "$(dirname "$(readlink -f "$0")")")"
+
 # download
 iso_file=$(basename "${iso_url}")
 if [[ ! -f ${iso_file} ]]; then

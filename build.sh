@@ -4,6 +4,10 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+# TODO: flags
+admin_user="hub"
+admin_pass="$(pwgen -ns 32 1)"
+
 debian_signing_key="DA87E80D6294BE9B"
 iso_url="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.2.0-amd64-netinst.iso"
 
@@ -36,6 +40,16 @@ xorriso \
 # set default boot entry and parameters
 sed -i "s#default vesamenu.c32#default auto#" "${workdir}/isolinux.cfg"
 sed -i "s#auto=true#auto=true file=/cdrom/preseed.cfg#" "${workdir}/adtxt.cfg"
+
+# admin user name
+sed -i "s#admin=.*#admin=\"${admin_user}\"#" "installer/late.sh"
+
+# admin password
+salt="$(pwgen -ns 16 1)"
+hash="$(mkpasswd -m sha-512 -S "${salt}" "${admin_pass}")"
+echo "user: hub"
+echo "pass: ${admin_pass}"
+sed -i "s#d-i passwd/user-password-crypted password.*#d-i passwd/user-password-crypted password ${hash}#" "installer/preseed.cfg"
 
 # repack iso
 rm -f "${iso_file//.iso/-auto.iso}"

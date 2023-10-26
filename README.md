@@ -8,8 +8,7 @@ Run `build.sh` to generate the hands-free iso image.
 
 ## Password
 
-The password declared by `passwd/user-password-crypted` will be discarded!
-The user is prompted for a new password on first login.
+A new admin password will be generated when executing `build.sh`.
 
 ## Debug in VM
 

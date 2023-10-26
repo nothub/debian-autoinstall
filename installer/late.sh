@@ -3,12 +3,7 @@
 set -eu
 
 prefix="/target"
-admin="hub"
-
-# expire user password (password must be set interactively on next login)
-# TODO: implement this feature in a way that does not require `passwd` in the installer runtime
-#passwd --delete "${admin}"
-#passwd --expire "${admin}"
+admin="@USERNAME@"
 
 # custom configs
 cp -a "/cdrom/configs/motd"        "${prefix}/etc/motd"

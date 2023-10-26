@@ -19,7 +19,7 @@ usage() {
 
 username="janitor"
 password="$(pwgen -ns 16 1)"
-hostname="$(cat /sys/class/net/en*/address | md5sum | tr -dc "[:alnum:]" | head -c 8)"
+hostname="machine"
 domain="example.org"
 iso_url="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.2.0-amd64-netinst.iso"
 sign_key="DA87E80D6294BE9B"

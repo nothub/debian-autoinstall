@@ -17,7 +17,7 @@ usage() {
     echo "  -h               Display this help message"
 }
 
-username="admin"
+username="janitor"
 password="$(pwgen -ns 16 1)"
 hostname="$(cat /sys/class/net/en*/address | md5sum | tr -dc "[:alnum:]" | head -c 8)"
 domain="example.org"

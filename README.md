@@ -4,7 +4,7 @@ Generate customized Debian iso images for automatic (preseeded) deployments.
 
 ## Usage
 
-Run `iso.sh` to generate a hands-free iso image.
+Run `build.sh` to generate the hands-free iso image.
 
 ## Password
 

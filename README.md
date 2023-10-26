@@ -8,4 +8,9 @@ Run `iso.sh` to generate a hands-free iso image.
 
 ## Password
 
-The password declared by `passwd/user-password-crypted` gets discarded! User is prompted for a new one on first login.
+The password declared by `passwd/user-password-crypted` will be discarded!
+The user is prompted for a new password on first login.
+
+## Debug in VM
+
+While running the installer, press ctrl+alt+f4 to show `in-target` log output.

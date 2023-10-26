@@ -97,7 +97,6 @@ xorriso -indev "${iso_file}" \
     -boot_image isolinux dir=/isolinux \
     -outdev "${iso_file//.iso/-auto.iso}"
 
-echo "host: ${hostname}.${domain}"
 echo "user: ${username}"
 echo "pass: ${password}"
 

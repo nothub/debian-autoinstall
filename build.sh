@@ -5,7 +5,7 @@ set -o nounset
 set -o pipefail
 
 usage() {
-    echo "Usage: $0 [-u username] [-p password] [-n hostname] [-d domain] [-i iso_url] [-s sign_key] [-v] [-h]"
+    echo "Usage: $0 [-u username] [-p password] [-n hostname] [-d domain] [-i iso_url] [-s sign_key] [-o path] [-v] [-h]"
     echo "Options:"
     echo "  -u <username>    Admin username"
     echo "  -p <password>    Admin password"
@@ -13,6 +13,7 @@ usage() {
     echo "  -d <domain>      Machine domain"
     echo "  -i <iso_url>     ISO download URL"
     echo "  -s <sign_key>    ISO pgp sign key"
+    echo "  -o <out_file>    ISO output file"
     echo "  -v               Enable verbose mode"
     echo "  -h               Display this help message"
 }
@@ -23,8 +24,9 @@ hostname="machine"
 domain="example.org"
 iso_url="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.2.0-amd64-netinst.iso"
 sign_key="DA87E80D6294BE9B"
+out_file="debian-12.2.0-amd64-auto.iso"
 
-while getopts u:p:n:d:i:s:vh opt; do
+while getopts u:p:n:d:i:s:o:vh opt; do
     case $opt in
     u) username="$OPTARG" ;;
     p) password="$OPTARG" ;;
@@ -32,6 +34,7 @@ while getopts u:p:n:d:i:s:vh opt; do
     d) domain="$OPTARG" ;;
     i) iso_url="$OPTARG" ;;
     s) sign_key="$OPTARG" ;;
+    o) out_file="$OPTARG" ;;
     v) set -o xtrace ;;
     h) usage ; exit 0 ;;
     *) usage ; exit 1 ;;
@@ -98,7 +101,7 @@ xorriso -indev "${iso_file}" \
     -map "${workdir}/motd"            "/configs/motd" \
     -map "${workdir}/sshd_config"     "/configs/sshd_config" \
     -boot_image isolinux dir=/isolinux \
-    -outdev "${iso_file//.iso/-auto.iso}"
+    -outdev "${out_file}"
 
 echo "user: ${username}"
 echo "pass: ${password}"

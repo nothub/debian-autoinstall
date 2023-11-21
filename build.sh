@@ -5,12 +5,13 @@ set -o nounset
 set -o pipefail
 
 usage() {
-    echo "Usage: $0 [-u username] [-p password] [-n hostname] [-d domain] [-i iso_url] [-s sign_key] [-o path] [-v] [-h]"
+    echo "Usage: $0 [-u username] [-p password] [-n hostname] [-d domain] [-a package] [-i iso_url] [-s sign_key] [-o path] [-v] [-h]"
     echo "Options:"
     echo "  -u <username>    Admin username"
     echo "  -p <password>    Admin password"
     echo "  -n <hostname>    Machine hostname"
     echo "  -d <domain>      Machine domain"
+    echo "  -a <package>     Additional apt package"
     echo "  -i <iso_url>     ISO download URL"
     echo "  -s <sign_key>    ISO pgp sign key"
     echo "  -o <out_file>    ISO output file"
@@ -25,13 +26,15 @@ domain="example.org"
 iso_url="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.2.0-amd64-netinst.iso"
 sign_key="DA87E80D6294BE9B"
 out_file="debian-12.2.0-amd64-auto.iso"
+apt_pkgs=()
 
-while getopts u:p:n:d:i:s:o:vh opt; do
+while getopts u:p:n:d:a:i:s:o:vh opt; do
     case $opt in
     u) username="$OPTARG" ;;
     p) password="$OPTARG" ;;
     n) hostname="$OPTARG" ;;
     d) domain="$OPTARG" ;;
+    a) apt_pkgs+=("$OPTARG") ;;
     i) iso_url="$OPTARG" ;;
     s) sign_key="$OPTARG" ;;
     o) out_file="$OPTARG" ;;
@@ -83,9 +86,10 @@ cp -a installer/* "${workdir}"
 find "${workdir}" -type f -exec sed -i "s#@USERNAME@#${username}#" {} \;
 salt="$(pwgen -ns 16 1)"
 hash="$(mkpasswd -m sha-512 -S "${salt}" "${password}")"
-sed -i "s#@PASSHASH@#${hash}#"     "${workdir}/preseed.cfg"
-sed -i "s#@HOSTNAME@#${hostname}#" "${workdir}/preseed.cfg"
-sed -i "s#@DOMAIN@#${domain}#"     "${workdir}/preseed.cfg"
+sed -i "s#@PASSHASH@#${hash}#"        "${workdir}/preseed.cfg"
+sed -i "s#@HOSTNAME@#${hostname}#"    "${workdir}/preseed.cfg"
+sed -i "s#@DOMAIN@#${domain}#"        "${workdir}/preseed.cfg"
+sed -i "s#@PACKAGES@#${apt_pkgs[*]}#" "${workdir}/preseed.cfg"
 
 # repack iso
 rm -f "${iso_file//.iso/-auto.iso}"

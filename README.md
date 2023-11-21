@@ -24,6 +24,7 @@ curl -sSLo configs/authorized_keys https://github.com/nothub.keys
 -d <domain>      Machine domain
 -i <iso_url>     ISO download URL
 -s <sign_key>    ISO pgp sign key
+-o <out_file>    ISO output file
 -v               Enable verbose mode
 -h               Display this help message
 ```

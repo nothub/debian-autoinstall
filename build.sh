@@ -97,6 +97,11 @@ sed -i "s#@HOSTNAME@#${hostname}#"    "${workdir}/preseed.cfg"
 sed -i "s#@DOMAIN@#${domain}#"        "${workdir}/preseed.cfg"
 sed -i "s#@PACKAGES@#${apt_pkgs[*]}#" "${workdir}/preseed.cfg"
 
+# clear existing output iso file
+if test -f "${out_file}"; then
+    rm -f "${out_file}"
+fi
+
 # repack iso
 rm -f "${iso_file//.iso/-auto.iso}"
 xorriso -indev "${iso_file}" \

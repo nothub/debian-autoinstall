@@ -12,7 +12,7 @@ Run `build.sh` to generate a hands-free iso image.
 
 ### Requirements
 
-The following command installs all requirements on a Debian based system:
+The following command installs all requirements to use the tool on a Debian based system:
 
 ```sh
 sudo apt update
@@ -26,6 +26,8 @@ git clone https://github.com/nothub/debian-autoinstall.git
 cd debian-autoinstall
 # customize authorized ssh keys
 curl -sSLo configs/authorized_keys https://github.com/nothub.keys
+# set user and password
+./build.sh -u 'hub' -p 'changeme'
 # set hostname and domain
 ./build.sh -n 'calculon' -d 'home.arpa'
 # include additional apt packages

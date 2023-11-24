@@ -58,3 +58,7 @@ If the `-p` flag is not set, a random admin password will be generated.
 While running the installer, press `ctrl`+`alt`+`f4` to show the installers log output.
 To switch back to the installers graphical interface, press `ctrl`+`alt`+`f1`.
 Switch to any other TTY for an interactive shell.
+
+## TODO
+
+- Generate hostname from hwid (eth0 mac addr hash?)

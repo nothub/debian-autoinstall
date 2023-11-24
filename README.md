@@ -68,6 +68,11 @@ echo "ssh-ed25519 AAAA... bar" >> configs/authorized_keys
 
 If the `-p` flag is not set, a random admin password will be generated.
 
+### Hostname
+
+If the `-n` flag is not set, a hostname will be generated at installation.
+The hostname will be based on the installed machines mac addresses.
+
 ## Debug in VM
 
 While running the installer, press `ctrl`+`alt`+`f4` to show the installers log output.

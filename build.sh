@@ -22,8 +22,8 @@ usage() {
 username="janitor"
 password="$(pwgen -ns 16 1)"
 password_mask="false"
-hostname="machine"
-domain="example.org"
+hostname="undefined"
+domain="home.arpa"
 iso_url="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.2.0-amd64-netinst.iso"
 sign_key="DA87E80D6294BE9B"
 out_file="debian-12.2.0-amd64-auto.iso"
@@ -85,17 +85,20 @@ cp -a installer/* "${workdir}"
 
 # generate password hash
 salt="$(pwgen -ns 16 1)"
-hash="$(mkpasswd -m sha-512 -S "${salt}" "${password}")"
+passhash="$(mkpasswd -m sha-512 -S "${salt}" "${password}")"
 if test "${password_mask}" == "true"; then
     password="$(echo "${password}" | tr '[:print:]' 'x')"
 fi
 
 # replace tokens
-find "${workdir}" -type f -exec sed -i "s#@USERNAME@#${username}#" {} \;
-sed -i "s#@PASSHASH@#${hash}#"        "${workdir}/preseed.cfg"
-sed -i "s#@HOSTNAME@#${hostname}#"    "${workdir}/preseed.cfg"
-sed -i "s#@DOMAIN@#${domain}#"        "${workdir}/preseed.cfg"
-sed -i "s#@PACKAGES@#${apt_pkgs[*]}#" "${workdir}/preseed.cfg"
+replace_token() {
+    find "${workdir}" -type f -exec sed -i "s#${1}#${2}#" {} \;
+}
+replace_token "@USERNAME@" "${username}"
+replace_token "@PASSHASH@" "${passhash}"
+replace_token "@HOSTNAME@" "${hostname}"
+replace_token "@DOMAIN@"   "${domain}"
+replace_token "@PACKAGES@" "${apt_pkgs[*]}"
 
 # clear existing output iso file
 if test -f "${out_file}"; then

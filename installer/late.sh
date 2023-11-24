@@ -4,6 +4,23 @@ set -eu
 
 prefix="/target"
 admin="@USERNAME@"
+hostname="@HOSTNAME@"
+domain="@DOMAIN@"
+
+if test "${hostname}" == "undefined"; then
+    # generate hostname from mac addresses
+    hostname="DEB$(cat /sys/class/net/*/address | tr -d '\n' | sha256sum | tr '[:lower:]' '[:upper:]' | head -c 5)"
+    echo "${hostname}" >"${prefix}/etc/hostname"
+    cat <<EOF >"${prefix}/etc/hosts"
+127.0.0.1	localhost
+127.0.1.1	${hostname}.${domain}	${hostname}
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+EOF
+fi
 
 # custom configs
 cp -a "/cdrom/configs/bashrc.bash" "${prefix}/etc/skel/.bashrc"

@@ -9,7 +9,7 @@ domain="@DOMAIN@"
 
 if test "${hostname}" == "undefined"; then
     # generate hostname from mac addresses
-    hostname="DEB$(cat /sys/class/net/*/address | tr -d '\n' | sha256sum | tr '[:lower:]' '[:upper:]' | head -c 5)"
+    hostname="deb$(cat /sys/class/net/*/address | tr -d '\n' | sha256sum | head -c 5)"
     echo "${hostname}" >"${prefix}/etc/hostname"
     cat <<EOF >"${prefix}/etc/hosts"
 127.0.0.1	localhost

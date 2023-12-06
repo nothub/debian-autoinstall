@@ -134,6 +134,10 @@ xorriso -indev "${iso_file}" \
 echo "user: ${username}"
 echo "pass: ${password}"
 
+if test "${password_mask}" == "false"; then
+    printf "user: %s\npass: %s\n" "${username}" "${password}" > "${out_file}.auth"
+fi
+
 rm -rf "${workdir}"
 
 sha256sum "${out_file}" >"${out_file}.sum"

@@ -1,5 +1,7 @@
 /.idea/
 /.vscode/
+/*.auth
 /*.iso
+/*.sum
 /SHA256SUMS
 /SHA256SUMS.sign

@@ -66,7 +66,7 @@ echo "ssh-ed25519 AAAA... bar" >> configs/authorized_keys
 
 ### Password
 
-If the `-p` flag is not set, a random admin password will be generated.
+If the `-p` flag is not set, a random admin password will be generated, printed to stdout and written to `<out_file>.auth`.
 
 ### Hostname
 

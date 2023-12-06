@@ -5,7 +5,7 @@ set -o nounset
 set -o pipefail
 
 usage() {
-    echo "Usage: $0 [-u username] [-p password] [-n hostname] [-d domain] [-a package] [-i iso_url] [-s sign_key] [-o path] [-v] [-h]"
+    echo "Usage: $0 [-u username] [-p password] [-n hostname] [-d domain] [-a package] [-i iso_url] [-s sign_key] [-o path] [-x] [-v] [-h]"
     echo "Options:"
     echo "  -u <username>    Admin username"
     echo "  -p <password>    Admin password"
@@ -15,6 +15,7 @@ usage() {
     echo "  -i <iso_url>     ISO download URL"
     echo "  -s <sign_key>    ISO pgp sign key"
     echo "  -o <out_file>    ISO output file"
+    echo "  -x               Power off after install"
     echo "  -v               Enable verbose mode"
     echo "  -h               Display this help message"
 }
@@ -28,8 +29,9 @@ iso_url="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.2.0
 sign_key="DA87E80D6294BE9B"
 out_file="debian-12.2.0-amd64-auto.iso"
 apt_pkgs=()
+poweroff=""
 
-while getopts u:p:n:d:a:i:s:o:vh opt; do
+while getopts u:p:n:d:a:i:s:o:xvh opt; do
     case $opt in
     u) username="$OPTARG" ;;
     p) password="$OPTARG" ; password_mask="true" ;;
@@ -39,6 +41,7 @@ while getopts u:p:n:d:a:i:s:o:vh opt; do
     i) iso_url="$OPTARG" ;;
     s) sign_key="$OPTARG" ;;
     o) out_file="$OPTARG" ;;
+    x) poweroff="true" ;;
     v) set -o xtrace ;;
     h) usage ; exit 0 ;;
     *) usage ; exit 1 ;;
@@ -100,6 +103,13 @@ replace_token "@HOSTNAME@" "${hostname}"
 replace_token "@DOMAIN@"   "${domain}"
 replace_token "@PACKAGES@" "${apt_pkgs[*]}"
 
+# add poweroff option
+if test -n "${poweroff}"; then
+    replace_token "@POWEROFF@" "true"
+else
+    replace_token "@POWEROFF@" "false"
+fi
+
 # clear existing output iso file
 if test -f "${out_file}"; then
     rm -f "${out_file}"
@@ -125,3 +135,5 @@ echo "user: ${username}"
 echo "pass: ${password}"
 
 rm -rf "${workdir}"
+
+sha256sum "${out_file}" >"${out_file}.sum"

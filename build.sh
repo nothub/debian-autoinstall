@@ -25,9 +25,9 @@ password="$(pwgen -ns 16 1)"
 password_mask="false"
 hostname="undefined"
 domain="home.arpa"
-iso_url="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.2.0-amd64-netinst.iso"
+iso_url="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.4.0-amd64-netinst.iso"
 sign_key="DA87E80D6294BE9B"
-out_file="debian-12.2.0-amd64-auto.iso"
+out_file="debian-12.4.0-amd64-auto.iso"
 apt_pkgs=()
 poweroff=""
 

@@ -7,7 +7,7 @@ Generate customized Debian ISO images for automatic deployments.
 Run `build.sh` to generate a hands-free ISO image.
 
 ```
-./build.sh [-u username] [-p password] [-n hostname] [-d domain] [-a package] [-i iso_url] [-s sign_key] [-o path] [-v] [-h]
+./build.sh [-u username] [-p password] [-n hostname] [-d domain] [-a package] [-i iso_url] [-s sign_key] [-o path] [-x] [-z] [-v] [-h]
 ```
 
 ### Requirements

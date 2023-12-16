@@ -60,6 +60,7 @@ echo "ssh-ed25519 AAAA... bar" >> configs/authorized_keys
 -i <iso_url>     ISO download URL
 -s <sign_key>    ISO pgp sign key
 -o <out_file>    ISO output file
+-x               Power off after install
 -v               Enable verbose mode
 -h               Display this help message
 ```

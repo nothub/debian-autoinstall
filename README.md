@@ -61,6 +61,7 @@ echo "ssh-ed25519 AAAA... bar" >> configs/authorized_keys
 -s <sign_key>    ISO pgp sign key
 -o <out_file>    ISO output file
 -x               Power off after install
+-z               Sudo without password
 -v               Enable verbose mode
 -h               Display this help message
 ```

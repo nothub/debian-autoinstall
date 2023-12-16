@@ -6,6 +6,7 @@ prefix="/target"
 admin="@USERNAME@"
 hostname="@HOSTNAME@"
 domain="@DOMAIN@"
+sudonopw="@SUDONOPW@"
 
 if test "${hostname}" == "undefined"; then
     # generate hostname from mac addresses
@@ -29,6 +30,11 @@ cp -a "/cdrom/configs/bashrc.bash" "${prefix}/root/.bashrc"
 cp -a "/cdrom/configs/issue"       "${prefix}/etc/issue"
 cp -a "/cdrom/configs/motd"        "${prefix}/etc/motd"
 cp -a "/cdrom/configs/sshd_config" "${prefix}/etc/ssh/sshd_config"
+
+# allow sudo without password
+if test "${sudonopw}" = "true"; then
+    echo "${admin} ALL=(ALL) NOPASSWD: ALL" > "${prefix}/etc/sudoers.d/${admin}"
+fi
 
 # authorize ssh keys for root user
 mkdir -p  "${prefix}/root/.ssh"

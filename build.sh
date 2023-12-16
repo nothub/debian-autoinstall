@@ -5,7 +5,7 @@ set -o nounset
 set -o pipefail
 
 usage() {
-    echo "Usage: $0 [-u username] [-p password] [-n hostname] [-d domain] [-a package] [-i iso_url] [-s sign_key] [-o path] [-x] [-v] [-h]"
+    echo "Usage: $0 [-u username] [-p password] [-n hostname] [-d domain] [-a package] [-i iso_url] [-s sign_key] [-o path] [-x] [-z] [-v] [-h]"
     echo "Options:"
     echo "  -u <username>    Admin username"
     echo "  -p <password>    Admin password"
@@ -16,6 +16,7 @@ usage() {
     echo "  -s <sign_key>    ISO pgp sign key"
     echo "  -o <out_file>    ISO output file"
     echo "  -x               Power off after install"
+    echo "  -z               Sudo without password"
     echo "  -v               Enable verbose mode"
     echo "  -h               Display this help message"
 }
@@ -30,8 +31,9 @@ sign_key="DA87E80D6294BE9B"
 out_file="debian-12.4.0-amd64-auto.iso"
 apt_pkgs=()
 poweroff=""
+sudonopw=""
 
-while getopts u:p:n:d:a:i:s:o:xvh opt; do
+while getopts u:p:n:d:a:i:s:o:xzvh opt; do
     case $opt in
     u) username="$OPTARG" ;;
     p) password="$OPTARG" ; password_mask="true" ;;
@@ -42,6 +44,7 @@ while getopts u:p:n:d:a:i:s:o:xvh opt; do
     s) sign_key="$OPTARG" ;;
     o) out_file="$OPTARG" ;;
     x) poweroff="true" ;;
+    z) sudonopw="true" ;;
     v) set -o xtrace ;;
     h) usage ; exit 0 ;;
     *) usage ; exit 1 ;;
@@ -104,10 +107,17 @@ replace_token "@DOMAIN@"   "${domain}"
 replace_token "@PACKAGES@" "${apt_pkgs[*]}"
 
 # add poweroff option
-if test -n "${poweroff}"; then
+if test "${poweroff}" = "true"; then
     replace_token "@POWEROFF@" "true"
 else
     replace_token "@POWEROFF@" "false"
+fi
+
+# add sudo no-password option
+if test "${sudonopw}" = "true"; then
+    replace_token "@SUDONOPW@" "true"
+else
+    replace_token "@SUDONOPW@" "false"
 fi
 
 # clear existing output iso file

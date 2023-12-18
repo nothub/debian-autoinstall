@@ -36,12 +36,6 @@ if test "${sudonopw}" = "true"; then
     echo "${admin} ALL=(ALL) NOPASSWD: ALL" > "${prefix}/etc/sudoers.d/${admin}"
 fi
 
-# authorize ssh keys for root user
-mkdir -p  "${prefix}/root/.ssh"
-chmod 700 "${prefix}/root/.ssh"
-cp -a "/cdrom/configs/authorized_keys" "${prefix}/root/.ssh/authorized_keys"
-chmod 640 "${prefix}/root/.ssh/authorized_keys"
-chown "0:0" "${prefix}/root/.ssh/authorized_keys"
 # authorize ssh keys for admin user
 mkdir -p  "${prefix}/home/${admin}/.ssh"
 chmod 700 "${prefix}/home/${admin}/.ssh"

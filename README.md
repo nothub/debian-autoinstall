@@ -33,7 +33,7 @@ cd debian-autoinstall
 To include SSH keys for remote access, add them to the `configs/authorized_keys` file.
 
 ```sh
-curl -sSLo configs/authorized_keys https://github.com/nothub.keys
+curl -fsSLo configs/authorized_keys https://github.com/nothub.keys
 echo "ssh-ed25519 AAAA... foo" >> configs/authorized_keys
 echo "ssh-ed25519 AAAA... bar" >> configs/authorized_keys
 ```

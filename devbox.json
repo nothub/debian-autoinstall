@@ -4,6 +4,7 @@
     "curl@latest",
     "git@latest",
     "gnupg@latest",
+    "mkpasswd@latest",
     "pwgen@latest",
     "whois@latest",
     "xorriso@latest"

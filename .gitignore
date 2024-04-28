@@ -6,3 +6,4 @@
 /SHA256SUMS
 /SHA256SUMS.sign
 /devbox.lock
+/configs/authorized_keys

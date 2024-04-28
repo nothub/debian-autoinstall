@@ -125,6 +125,11 @@ if test -f "${out_file}"; then
     rm -f "${out_file}"
 fi
 
+# with no authorized keys, create dummy file
+if test ! -f "configs/authorized_keys"; then
+    echo -n >"configs/authorized_keys"
+fi
+
 # repack iso
 rm -f "${iso_file//.iso/-auto.iso}"
 xorriso -indev "${iso_file}" \

@@ -10,9 +10,9 @@ Run `build.sh` to generate a hands-free ISO image.
 ./build.sh [-u username] [-p password] [-n hostname] [-d domain] [-a package] [-i iso_url] [-s sign_key] [-o path] [-x] [-z] [-v] [-h]
 ```
 
-### Requirements
+### Dependencies
 
-The following command installs all requirements to build an ISO image on a Debian based system:
+The following command installs all dependencies on a Debian based system:
 
 ```sh
 sudo apt update

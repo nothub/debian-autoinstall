@@ -1,0 +1,11 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.10.5/.schema/devbox.schema.json",
+  "packages": [
+    "curl@latest",
+    "git@latest",
+    "gnupg@latest",
+    "pwgen@latest",
+    "whois@latest",
+    "xorriso@latest"
+  ]
+}

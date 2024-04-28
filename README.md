@@ -12,7 +12,13 @@ Run `build.sh` to generate a hands-free ISO image.
 
 ### Dependencies
 
-The following command installs all dependencies on a Debian based system:
+Start a [devbox](https://www.jetify.com/devbox) [shell](https://www.jetify.com/devbox/docs/quickstart/#launch-your-development-environment) with:
+
+```sh
+devbox shell --pure
+```
+
+Or install all dependencies on a Debian 12 system:
 
 ```sh
 sudo apt update
@@ -74,6 +80,10 @@ If the `-p` flag is not set, a random admin password will be generated, printed 
 
 If the `-n` flag is not set, a hostname will be generated at installation.
 The hostname will be based on the installed machines mac addresses.
+
+### Restart
+
+If the `-x` flag is not set, the machine will restart after the installation is finished.
 
 ## Preseed Config
 

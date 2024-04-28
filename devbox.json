@@ -14,7 +14,12 @@
     "scripts": {
       "build": [
         "cat ${HOME}/.ssh/id_ed25519.pub > configs/authorized_keys",
-        "./build.sh -u 'janitor' -d 'example.org' -z",
+        "./build.sh     \\",
+          "-u 'janitor' \\",
+          "-d 'hub.lol' \\",
+          "-a 'curl'    \\",
+          "-a 'ripgrep' \\",
+          "-z",
         "cat *.sum"
       ]
     }

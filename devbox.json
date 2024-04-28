@@ -7,5 +7,15 @@
     "pwgen@latest",
     "whois@latest",
     "xorriso@latest"
-  ]
+  ],
+  "shell": {
+    "init_hook": [],
+    "scripts": {
+      "build": [
+        "cat ${HOME}/.ssh/id_ed25519.pub > configs/authorized_keys",
+        "./build.sh -u 'janitor' -d 'example.org' -z",
+        "cat *.sum"
+      ]
+    }
+  }
 }

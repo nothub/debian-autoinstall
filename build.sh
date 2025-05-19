@@ -126,8 +126,8 @@ if test -f "${out_file}"; then
 fi
 
 # with no authorized keys, create dummy file
-if test ! -f "configs/authorized_keys"; then
-    echo -n >"configs/authorized_keys"
+if test ! -f "${workdir}/authorized_keys"; then
+    echo -n >"${workdir}/authorized_keys"
 fi
 
 # repack iso

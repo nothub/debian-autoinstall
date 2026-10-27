@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.17.2/.schema/devbox.schema.json",
   "packages": [
-    "curl@8.17.0",
+    "curl@8.22.0",
     "git@2.53.0",
     "gnupg@2.4.9",
     "mkpasswd@5.6.6",

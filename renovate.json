@@ -1,0 +1,23 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "configMigration": true,
+  "minimumReleaseAge": "7 days",
+  "semanticCommits": "enabled",
+  "timezone": "Europe/Berlin",
+  "assignees": [
+    "nothub"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Bump Debian netinst ISO version",
+      "managerFilePatterns": ["/^build\\.sh$/"],
+      "matchStrings": [
+        "debian-(?<currentValue>\\d+\\.\\d+)\\.0-amd64-netinst\\.iso"
+      ],
+      "datasourceTemplate": "endoflife-date",
+      "depNameTemplate": "debian",
+      "versioningTemplate": "loose"
+    }
+  ]
+}
